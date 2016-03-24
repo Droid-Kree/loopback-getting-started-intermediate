@@ -6,23 +6,30 @@
       <div class="form-group">
         <label>Coffee shop name</label>
         <select
+            title="Select shop"
             ng-disabled="isDisabled"
             ng-model="selectedShop"
             ng-options="shop as shop.name for shop in coffeeShops"></select>
       </div>
 
-      <div class="form-group">
+      <div class="form-group ratings">
         <label>Rating</label>
-        <input type="radio" ng-model="review.rating" value="1">1&#9733;
-        <input type="radio" ng-model="review.rating" value="2">2&#9733;
-        <input type="radio" ng-model="review.rating" value="3">3&#9733;
-        <input type="radio" ng-model="review.rating" value="4">4&#9733;
-        <input type="radio" ng-model="review.rating" value="5">5&#9733;
+        <input type="radio" title="1" ng-model="review.rating" value="1">
+        <span class="rating">1&#9733;</span>
+        <input type="radio" title="2" ng-model="review.rating" value="2">
+        <span class="rating">2&#9733;</span>
+        <input type="radio" title="3" ng-model="review.rating" value="3">
+        <span class="rating">3&#9733;</span>
+        <input type="radio" title="4" ng-model="review.rating" value="4">
+        <span class="rating">4&#9733;</span>
+        <input type="radio" title="5" ng-model="review.rating" value="5">
+        <span class="rating">5&#9733;</span>
       </div>
 
       <div class="form-group">
         <label>Comments</label>
-        <textarea ng-model="review.comments"></textarea>
+        <textarea title="Enter comments" ng-class="{'missing-comments': (!review.comments && missingComments)}"
+                  ng-model="review.comments"></textarea>
       </div>
 
       <div class="actions">
@@ -31,4 +38,4 @@
       </div>
     </fieldset>
   </form>
-<section>
+</section>

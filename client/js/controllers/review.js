@@ -1,7 +1,7 @@
 angular
   .module('app')
-  .controller('AllReviewsController', ['$scope', 'Review', function($scope,
-      Review) {
+  .controller('AllReviewsController', ['$scope', 'Review',
+    function($scope, Review) {
     $scope.reviews = Review.find({
       filter: {
         include: [
@@ -11,11 +11,11 @@ angular
       }
     });
   }])
-  .controller('AddReviewController', ['$scope', 'CoffeeShop', 'Review',
-      '$state', function($scope, CoffeeShop, Review, $state) {
+  .controller('AddReviewController', ['$scope', 'CoffeeShop', 'Review', '$state',
+    function($scope, CoffeeShop, Review, $state) {
     $scope.action = 'Add';
     $scope.coffeeShops = [];
-    $scope.selectedShop;
+    $scope.selectedShop = {};
     $scope.review = {};
     $scope.isDisabled = false;
 
@@ -28,20 +28,24 @@ angular
       });
 
     $scope.submitForm = function() {
-      Review
-        .create({
-          rating: $scope.review.rating,
-          comments: $scope.review.comments,
-          coffeeShopId: $scope.selectedShop.id
-        })
-        .$promise
-        .then(function() {
-          $state.go('all-reviews');
-        });
+      if ($scope.review.comments) {
+        Review
+          .create({
+            rating: $scope.review.rating,
+            comments: $scope.review.comments,
+            coffeeShopId: $scope.selectedShop.id
+          })
+          .$promise
+          .then(function () {
+            $state.go('all-reviews');
+          });
+      } else {
+        $scope.missingComments = true;
+      }
     };
   }])
-  .controller('DeleteReviewController', ['$scope', 'Review', '$state',
-      '$stateParams', function($scope, Review, $state, $stateParams) {
+  .controller('DeleteReviewController', ['$scope', 'Review', '$state', '$stateParams',
+    function($scope, Review, $state, $stateParams) {
     Review
       .deleteById({ id: $stateParams.id })
       .$promise
@@ -49,12 +53,11 @@ angular
         $state.go('my-reviews');
       });
   }])
-  .controller('EditReviewController', ['$scope', '$q', 'CoffeeShop', 'Review',
-      '$stateParams', '$state', function($scope, $q, CoffeeShop, Review,
-      $stateParams, $state) {
+  .controller('EditReviewController', ['$scope', '$q', 'CoffeeShop', 'Review', '$stateParams', '$state',
+    function($scope, $q, CoffeeShop, Review, $stateParams, $state) {
     $scope.action = 'Edit';
     $scope.coffeeShops = [];
-    $scope.selectedShop;
+    $scope.selectedShop = {};
     $scope.review = {};
     $scope.isDisabled = true;
 
@@ -66,7 +69,6 @@ angular
       .then(function(data) {
         var coffeeShops = $scope.coffeeShops = data[0];
         $scope.review = data[1];
-        $scope.selectedShop;
 
         var selectedShopIndex = coffeeShops
           .map(function(coffeeShop) {
@@ -78,11 +80,16 @@ angular
 
     $scope.submitForm = function() {
       $scope.review.coffeeShopId = $scope.selectedShop.id;
-      $scope.review
-        .$save()
-        .then(function(review) {
-          $state.go('all-reviews');
-        });
+      if ($scope.review.comments) {
+        $scope.review
+          .$save()
+          .then(function (review) {
+            console.log(review);
+            $state.go('all-reviews');
+          });
+      } else {
+        $scope.missingComments = true;
+      }   
     };
   }])
   .controller('MyReviewsController', ['$scope', 'Review', '$rootScope',

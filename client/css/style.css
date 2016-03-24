@@ -1,10 +1,10 @@
-/*global*/
+/*++Global++*/
 * {
   margin:0;
   padding:0;
 }
 body {
-  font-family:'courier new';
+  font-family: courier new, sans-serif;
   font-size:1rem;
 }
 button {
@@ -12,7 +12,7 @@ button {
   border:0;
   color:#777;
   cursor:pointer;
-  font-family:'courier new';
+  font-family: courier new, sans-serif;
   font-size:1rem;
   padding:.5rem;
 }
@@ -33,19 +33,22 @@ fieldset legend {
 }
 label {
   display:inline-block;
+  margin-bottom: 16px;
   text-align:right;
   vertical-align:middle;
   width:200px;
 }
 select {
   background:#ddd;
-  text-indent: 0.01px;
+  text-indent: 1px;
   text-overflow: "";
 }
 p {
   padding:1rem;
 }
-/*header*/
+/*--Global--*/
+
+/*++Header++*/
 body > header {
   border-bottom:1px solid #ccc;
 }
@@ -57,7 +60,9 @@ body > header h2 {
   font-size:1rem;
   padding:0 1rem;
 }
-/*nav*/
+/*--Header--*/
+
+/*++Nav++*/
 body > header nav {
   padding:1rem;
 }
@@ -73,7 +78,9 @@ body > header nav li a {
 body > header nav li a.active {
   background:#eee;
 }
-/*main*/
+/*--Nav--*/
+
+/*++Main++*/
 main section {
   padding:1rem;
 }
@@ -87,14 +94,16 @@ main section article h2 {
   font-size:1rem;
   margin-bottom:1rem;
 }
-/*main form*/
+/*--Main--*/
+
+/*++Main Form++*/
 main input,
 select,
 textarea {
   background:#ddd;
   border:0;
   display:inline-block;
-  font-family:'courier new';
+  font-family: courier new, sans-serif;
   margin-bottom:1rem;
   padding:.5rem;
   vertical-align:middle;
@@ -103,3 +112,19 @@ main select,
 textarea {
   width:300px;
 }
+/*--Main Form--*/
+
+/*++Review++*/
+.rating {
+  margin-left: -7px;
+  margin-bottom: 1rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+.ratings {
+  cursor: default;
+}
+.missing-comments {
+  border: 1px solid red;
+}
+/*--Review--*/
